@@ -48,6 +48,9 @@ class MainController(QMainWindow):
         self.btnConfig.clicked.connect(self.abrir_configuracoes)
         self.btnRegistrar.clicked.connect(self.simular_leitura)
         self.btnLimparTudo.clicked.connect(self.limpar_todo_historico)
+        
+        self.cbFiltro.currentIndexChanged.connect(self.aplicar_filtros)
+        self.dateEdit.dateChanged.connect(self.aplicar_filtros)
 
     def calcular_ponto_orvalho(self, temp: float, umidade: float) -> float:
         """Calcula o Ponto de Orvalho aproximado usando a fórmula de Magnus-Tetens."""
@@ -102,6 +105,37 @@ class MainController(QMainWindow):
         
         for col, valor in enumerate(dados):
             self.tableHistorico.setItem(row, col, QTableWidgetItem(str(valor)))
+
+        self.aplicar_filtros()
+
+    def aplicar_filtros(self):
+        """Oculta ou exibe as linhas da tabela de acordo com a opção e data selecionadas."""
+        opcao_filtro = self.cbFiltro.currentText()
+        data_filtro = self.dateEdit.date().toString("dd/MM/yyyy")
+
+        for row in range(self.tableHistorico.rowCount()):
+            item_data = self.tableHistorico.item(row, 0)
+            item_temp = self.tableHistorico.item(row, 1)
+
+            if not item_data or not item_temp:
+                continue
+
+            data_registro = item_data.text().split(" ")[0]
+            try:
+                temp_valor = float(item_temp.text())
+            except ValueError:
+                continue
+
+            corresponde_data = (data_registro == data_filtro)
+
+            corresponde_temp = True
+            if opcao_filtro == "Temp. Alta (>30°C)":
+                corresponde_temp = temp_valor > 30.0
+            elif opcao_filtro == "Temp. Baixa (<15°C)":
+                corresponde_temp = temp_valor < 15.0
+
+            deve_exibir = corresponde_data and corresponde_temp
+            self.tableHistorico.setRowHidden(row, not deve_exibir)
 
     def simular_leitura(self):
         temp_simulada = round(random.uniform(10.0, 40.0), 1)

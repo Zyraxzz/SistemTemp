@@ -6,7 +6,7 @@
    <rect><x>0</x><y>0</y><width>900</width><height>650</height></rect>
   </property>
   <property name="windowTitle">
-   <string>SistemTemp - Monitor de Temperatura</string>
+   <string>SistemTemp - Monitor Climático</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -18,7 +18,7 @@
          <string notr="true">font-size: 18pt; font-weight: bold; color: #2C3E50;</string>
         </property>
         <property name="text">
-         <string>Painel de Telemetria de Temperatura</string>
+         <string>Painel de Telemetria Climática</string>
         </property>
        </widget>
       </item>
@@ -34,46 +34,46 @@
     <item>
      <layout class="QHBoxLayout" name="cardsLayout">
       <item>
-       <widget class="QFrame" name="cardTensao">
+       <widget class="QFrame" name="cardTemperatura">
         <property name="styleSheet">
          <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
         </property>
         <layout class="QVBoxLayout" name="v1">
-         <item><widget class="QLabel" name="l1"><property name="text"><string>&lt;b&gt;Tensão (V)&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblTensao"><property name="text"><string>220.0 V</string></property></widget></item>
+         <item><widget class="QLabel" name="l1"><property name="text"><string>&lt;b&gt;Temperatura (°C)&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblTemperatura"><property name="text"><string>25.5 °C</string></property></widget></item>
         </layout>
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="cardCorrente">
+       <widget class="QFrame" name="cardUmidade">
         <property name="styleSheet">
          <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
         </property>
         <layout class="QVBoxLayout" name="v2">
-         <item><widget class="QLabel" name="l2"><property name="text"><string>&lt;b&gt;Corrente (A)&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblCorrente"><property name="text"><string>10.0 A</string></property></widget></item>
+         <item><widget class="QLabel" name="l2"><property name="text"><string>&lt;b&gt;Umidade (%)&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblUmidade"><property name="text"><string>60 %</string></property></widget></item>
         </layout>
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="cardPotencia">
+       <widget class="QFrame" name="cardPressao">
         <property name="styleSheet">
          <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
         </property>
         <layout class="QVBoxLayout" name="v3">
-         <item><widget class="QLabel" name="l3"><property name="text"><string>&lt;b&gt;Potência (P = V x I)&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblPotencia"><property name="text"><string>2200.0 W</string></property></widget></item>
+         <item><widget class="QLabel" name="l3"><property name="text"><string>&lt;b&gt;Pressão (hPa)&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblPressao"><property name="text"><string>1013.2 hPa</string></property></widget></item>
         </layout>
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="cardDisjuntor">
+       <widget class="QFrame" name="cardAlerta">
         <property name="styleSheet">
          <string notr="true">background-color: #2ECC71; border-radius: 8px; padding: 10px; color: white;</string>
         </property>
         <layout class="QVBoxLayout" name="v4">
-         <item><widget class="QLabel" name="l4"><property name="text"><string>&lt;b&gt;Disjuntor&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblDisjuntor"><property name="text"><string>FECHADO (NORMAL)</string></property></widget></item>
+         <item><widget class="QLabel" name="l4"><property name="text"><string>&lt;b&gt;Status Clima&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblStatusAlerta"><property name="text"><string>ESTÁVEL (NORMAL)</string></property></widget></item>
         </layout>
        </widget>
       </item>
@@ -90,8 +90,9 @@
      <layout class="QHBoxLayout" name="filterLayout">
       <item>
        <widget class="QComboBox" name="cbFiltro">
-        <item><property name="text"><string>Todos os Eventos</string></property></item>
-        <item><property name="text"><string>Alertas de Temperatura</string></property></item>
+        <item><property name="text"><string>Todas as Leituras</string></property></item>
+        <item><property name="text"><string>Alertas de Temp. Alta (&gt;30°C)</string></property></item>
+        <item><property name="text"><string>Alertas de Temp. Baixa (&lt;15°C)</string></property></item>
        </widget>
       </item>
       <item>
@@ -101,7 +102,7 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnRegistrar">
-        <property name="text"><string>Simular Leitura Instantânea</string></property>
+        <property name="text"><string>Simular Leitura Climática</string></property>
        </widget>
       </item>
      </layout>
@@ -110,10 +111,10 @@
      <widget class="QTableWidget" name="tableHistorico">
       <column><property name="text"><string>Data/Hora</string></property></column>
       <column><property name="text"><string>Temp. (°C)</string></property></column>
-      <column><property name="text"><string>Tensão (V)</string></property></column>
-      <column><property name="text"><string>Corrente (A)</string></property></column>
-      <column><property name="text"><string>Potência (W)</string></property></column>
-      <column><property name="text"><string>Status Disjuntor</string></property></column>
+      <column><property name="text"><string>Umidade (%)</string></property></column>
+      <column><property name="text"><string>Pressão (hPa)</string></property></column>
+      <column><property name="text"><string>Ponto de Orvalho (°C)</string></property></column>
+      <column><property name="text"><string>Condição</string></property></column>
      </widget>
     </item>
    </layout>

@@ -1,6 +1,6 @@
 import datetime
 import random
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QHeaderView
 from PyQt5.QtCore import QDate
 
 import pyqtgraph as pg 
@@ -14,27 +14,40 @@ class MainController(QMainWindow):
     def __init__(self):
         super().__init__()
         loadUi("ui/main_window.ui", self)
+
+        self.tableHistorico.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         
         self.model = TelemetryModel()
         self.dateEdit.setDate(QDate.currentDate())
         
+        self.x_data = []
+        self.y_data = []
+        self.plot_line = None
+        
         self._setup_graph()
         self._conectar_sinais()
-        
-        # Leitura inicial padrão
+  
         self.atualizar_telemetria(temperatura=24.5, umidade=65, pressao=1012.0)
 
     def _setup_graph(self):
         self.graphWidget.setBackground('w')
         self.graphWidget.setTitle("Histórico de Temperatura (°C)", color="#2C3E50", size="12pt")
         self.graphWidget.showGrid(x=True, y=True)
+
+        self.x_data = []
+        self.y_data = []
         
-        horas, temps = self.model.gerar_dados_pre_carregados()
-        self.graphWidget.plot(horas, temps, pen=pg.mkPen(color='#E74C3C', width=2), name="Temp (°C)")
+        self.plot_line = self.graphWidget.plot(
+            self.x_data, 
+            self.y_data, 
+            pen=pg.mkPen(color='#E74C3C', width=2), 
+            name="Temp (°C)"
+        )
 
     def _conectar_sinais(self):
         self.btnConfig.clicked.connect(self.abrir_configuracoes)
         self.btnRegistrar.clicked.connect(self.simular_leitura)
+        self.btnLimparTudo.clicked.connect(self.limpar_todo_historico)
 
     def calcular_ponto_orvalho(self, temp: float, umidade: float) -> float:
         """Calcula o Ponto de Orvalho aproximado usando a fórmula de Magnus-Tetens."""
@@ -48,7 +61,6 @@ class MainController(QMainWindow):
         self.lblUmidade.setText(f"{umidade:.0f} %")
         self.lblPressao.setText(f"{pressao:.1f} hPa")
 
-        # 2. Status Climático e Alerta Visual
         if temperatura > self.model.temp_max_alerta:
             status_txt = "ALERTA: CALOR EXTREMO"
             style = "background-color: #E74C3C; border-radius: 8px; padding: 10px; color: white;"
@@ -65,8 +77,14 @@ class MainController(QMainWindow):
         self.lblStatusAlerta.setText(status_txt)
         self.cardAlerta.setStyleSheet(style)
 
-        # 3. Adicionar registro na tabela
         self.adicionar_tabela_historico(temperatura, umidade, pressao, orvalho, status_txt)
+        
+        novo_x = self.x_data[-1] + 1 if self.x_data else 1
+        self.x_data.append(novo_x)
+        self.y_data.append(temperatura)
+
+        if self.plot_line:
+            self.plot_line.setData(self.x_data, self.y_data)
 
     def adicionar_tabela_historico(self, temp, umid, press, orvalho, status):
         row = self.tableHistorico.rowCount()
@@ -86,12 +104,10 @@ class MainController(QMainWindow):
             self.tableHistorico.setItem(row, col, QTableWidgetItem(str(valor)))
 
     def simular_leitura(self):
-        # Gera valores aleatórios coerentes com simulação de clima
         temp_simulada = round(random.uniform(10.0, 40.0), 1)
         umid_simulada = random.randint(20, 95)
         press_simulada = round(random.uniform(1000.0, 1025.0), 1)
 
-        # Dispara aviso na tela se exceder os limites configurados
         if temp_simulada > self.model.temp_max_alerta:
             QMessageBox.warning(
                 self, 
@@ -122,3 +138,35 @@ class MainController(QMainWindow):
             
             QMessageBox.information(self, "Sucesso", "Novos parâmetros de alertas climáticos salvos!")
             self.atualizar_telemetria(temperatura=25.0, umidade=50, pressao=1013.2)
+
+    def limpar_todo_historico(self):
+        """Remove todas as linhas da tabela de histórico e reinicia o gráfico com botões customizados em PT-BR."""
+        if self.tableHistorico.rowCount() == 0:
+            QMessageBox.information(
+                self, 
+                "Informação", 
+                "O histórico já está vazio."
+            )
+            return
+
+        msg_box = QMessageBox(self)
+        msg_box.setIcon(QMessageBox.Question)
+        msg_box.setWindowTitle("Confirmar Limpeza")
+        msg_box.setText("Tem certeza que deseja apagar TODO o histórico de registros?")
+        
+        btn_sim = msg_box.addButton(QMessageBox.Yes)
+        btn_nao = msg_box.addButton(QMessageBox.No)
+        
+        btn_sim.setText("Sim")
+        btn_nao.setText("Não")
+        
+        msg_box.setDefaultButton(btn_nao)
+        msg_box.exec_()
+
+        if msg_box.clickedButton() == btn_sim:
+            self.tableHistorico.setRowCount(0)
+            
+            self.x_data.clear()
+            self.y_data.clear()
+            if self.plot_line:
+                self.plot_line.setData([], [])

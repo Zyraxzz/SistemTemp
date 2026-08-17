@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Parâmetros Climáticos - SistemTemp</string>
+   <string>SistemTemp</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

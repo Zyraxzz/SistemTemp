@@ -3,96 +3,104 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
-   <rect><x>0</x><y>0</y><width>900</width><height>650</height></rect>
+   <rect><x>0</x><y>0</y><width>800</width><height>600</height></rect>
   </property>
   <property name="windowTitle">
-   <string>SistemTemp - Monitor Climático</string>
+   <string>SistemTemp</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QMainWindow { background-color: #FFFFFF; }
+    QLabel { color: #333333; font-size: 11pt; }
+    QPushButton { background-color: #F0F0F0; border: 1px solid #CCCCCC; border-radius: 4px; padding: 6px 12px; font-size: 10pt; }
+    QPushButton:hover { background-color: #E5E5E5; }
+    QComboBox, QDateEdit { border: 1px solid #CCCCCC; border-radius: 4px; padding: 4px; font-size: 10pt; background: #FFFFFF; }
+    QTableWidget { border: 1px solid #E0E0E0; gridline-color: #F0F0F0; font-size: 10pt; background-color: #FFFFFF; }
+    QHeaderView::section { background-color: #FAFAFA; border: none; border-bottom: 1px solid #E0E0E0; font-weight: bold; padding: 4px; }
+   </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing"><number>12</number></property>
+    <property name="leftMargin"><number>16</number></property>
+    <property name="topMargin"><number>16</number></property>
+    <property name="rightMargin"><number>16</number></property>
+    <property name="bottomMargin"><number>16</number></property>
+
     <item>
      <layout class="QHBoxLayout" name="headerLayout">
       <item>
        <widget class="QLabel" name="lblTitulo">
         <property name="styleSheet">
-         <string notr="true">font-size: 18pt; font-weight: bold; color: #2C3E50;</string>
+         <string notr="true">font-size: 14pt; font-weight: bold; color: #111111;</string>
         </property>
-        <property name="text">
-         <string>Painel de Telemetria Climática</string>
-        </property>
+        <property name="text"><string>SistemTemp</string></property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btnConfig">
-        <property name="text">
-         <string>Configurações</string>
-        </property>
+        <property name="text"><string>Configurações</string></property>
        </widget>
       </item>
      </layout>
     </item>
+
     <item>
      <layout class="QHBoxLayout" name="cardsLayout">
       <item>
        <widget class="QFrame" name="cardTemperatura">
-        <property name="styleSheet">
-         <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
-        </property>
         <layout class="QVBoxLayout" name="v1">
-         <item><widget class="QLabel" name="l1"><property name="text"><string>&lt;b&gt;Temperatura (°C)&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblTemperatura"><property name="text"><string>25.5 °C</string></property></widget></item>
+         <property name="margin"><number>0</number></property>
+         <item><widget class="QLabel" name="l1"><property name="text"><string>Temperatura</string></property></widget></item>
+         <item><widget class="QLabel" name="lblTemperatura"><property name="styleSheet"><string>font-size: 14pt; font-weight: bold;</string></property><property name="text"><string>-- °C</string></property></widget></item>
         </layout>
        </widget>
       </item>
       <item>
        <widget class="QFrame" name="cardUmidade">
-        <property name="styleSheet">
-         <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
-        </property>
         <layout class="QVBoxLayout" name="v2">
-         <item><widget class="QLabel" name="l2"><property name="text"><string>&lt;b&gt;Umidade (%)&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblUmidade"><property name="text"><string>60 %</string></property></widget></item>
+         <property name="margin"><number>0</number></property>
+         <item><widget class="QLabel" name="l2"><property name="text"><string>Umidade</string></property></widget></item>
+         <item><widget class="QLabel" name="lblUmidade"><property name="styleSheet"><string>font-size: 14pt; font-weight: bold;</string></property><property name="text"><string>-- %</string></property></widget></item>
         </layout>
        </widget>
       </item>
       <item>
        <widget class="QFrame" name="cardPressao">
-        <property name="styleSheet">
-         <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
-        </property>
         <layout class="QVBoxLayout" name="v3">
-         <item><widget class="QLabel" name="l3"><property name="text"><string>&lt;b&gt;Pressão (hPa)&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblPressao"><property name="text"><string>1013.2 hPa</string></property></widget></item>
+         <property name="margin"><number>0</number></property>
+         <item><widget class="QLabel" name="l3"><property name="text"><string>Pressão</string></property></widget></item>
+         <item><widget class="QLabel" name="lblPressao"><property name="styleSheet"><string>font-size: 14pt; font-weight: bold;</string></property><property name="text"><string>-- hPa</string></property></widget></item>
         </layout>
        </widget>
       </item>
       <item>
        <widget class="QFrame" name="cardAlerta">
-        <property name="styleSheet">
-         <string notr="true">background-color: #2ECC71; border-radius: 8px; padding: 10px; color: white;</string>
-        </property>
         <layout class="QVBoxLayout" name="v4">
-         <item><widget class="QLabel" name="l4"><property name="text"><string>&lt;b&gt;Status Clima&lt;/b&gt;</string></property></widget></item>
-         <item><widget class="QLabel" name="lblStatusAlerta"><property name="text"><string>ESTÁVEL (NORMAL)</string></property></widget></item>
+         <property name="margin"><number>0</number></property>
+         <item><widget class="QLabel" name="l4"><property name="text"><string>Status</string></property></widget></item>
+         <item><widget class="QLabel" name="lblStatusAlerta"><property name="styleSheet"><string>font-weight: bold; color: #27AE60;</string></property><property name="text"><string>OK</string></property></widget></item>
         </layout>
        </widget>
       </item>
      </layout>
     </item>
+
     <item>
      <widget class="PlotWidget" name="graphWidget" native="true">
       <property name="minimumSize">
-       <size><width>0</width><height>250</height></size>
+       <size><width>0</width><height>200</height></size>
       </property>
      </widget>
     </item>
+
     <item>
      <layout class="QHBoxLayout" name="filterLayout">
       <item>
        <widget class="QComboBox" name="cbFiltro">
         <item><property name="text"><string>Todas as Leituras</string></property></item>
-        <item><property name="text"><string>Alertas de Temp. Alta (&gt;30°C)</string></property></item>
-        <item><property name="text"><string>Alertas de Temp. Baixa (&lt;15°C)</string></property></item>
+        <item><property name="text"><string>Temp. Alta (&gt;30°C)</string></property></item>
+        <item><property name="text"><string>Temp. Baixa (&lt;15°C)</string></property></item>
        </widget>
       </item>
       <item>
@@ -102,18 +110,24 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnRegistrar">
-        <property name="text"><string>Simular Leitura Climática</string></property>
+        <property name="text"><string>Simular Leitura</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnLimparTudo">
+        <property name="text"><string>Limpar Histórico</string></property>
        </widget>
       </item>
      </layout>
     </item>
+
     <item>
      <widget class="QTableWidget" name="tableHistorico">
       <column><property name="text"><string>Data/Hora</string></property></column>
       <column><property name="text"><string>Temp. (°C)</string></property></column>
       <column><property name="text"><string>Umidade (%)</string></property></column>
       <column><property name="text"><string>Pressão (hPa)</string></property></column>
-      <column><property name="text"><string>Ponto de Orvalho (°C)</string></property></column>
+      <column><property name="text"><string>Ponto Orvalho (°C)</string></property></column>
       <column><property name="text"><string>Condição</string></property></column>
      </widget>
     </item>

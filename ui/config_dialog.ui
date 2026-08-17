@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigDialog</class>
+ <widget class="QDialog" name="ConfigDialog">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>350</width><height>200</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Parâmetros do Sistema</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lblInfo">
+     <property name="text">
+      <string><b>Ajuste de Limites de Operação</b></string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label"><property name="text"><string>Temp. Máxima (°C):</string></property></widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDoubleSpinBox" name="spinTempMax">
+       <property name="value"><double>75.0</double></property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2"><property name="text"><string>Tensão Nominal (V):</string></property></widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="spinTensao">
+       <property name="maximum"><double>500.0</double></property>
+       <property name="value"><double>220.0</double></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation"><enum>Qt::Horizontal</enum></property>
+     <property name="standardButtons"><enum>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</enum></property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+</ui>

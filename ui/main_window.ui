@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>900</width><height>650</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>SistemTemp - Monitor de Temperatura</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="headerLayout">
+      <item>
+       <widget class="QLabel" name="lblTitulo">
+        <property name="styleSheet">
+         <string notr="true">font-size: 18pt; font-weight: bold; color: #2C3E50;</string>
+        </property>
+        <property name="text">
+         <string>Painel de Telemetria de Temperatura</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnConfig">
+        <property name="text">
+         <string>Configurações</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="cardsLayout">
+      <item>
+       <widget class="QFrame" name="cardTensao">
+        <property name="styleSheet">
+         <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
+        </property>
+        <layout class="QVBoxLayout" name="v1">
+         <item><widget class="QLabel" name="l1"><property name="text"><string>&lt;b&gt;Tensão (V)&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblTensao"><property name="text"><string>220.0 V</string></property></widget></item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="cardCorrente">
+        <property name="styleSheet">
+         <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
+        </property>
+        <layout class="QVBoxLayout" name="v2">
+         <item><widget class="QLabel" name="l2"><property name="text"><string>&lt;b&gt;Corrente (A)&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblCorrente"><property name="text"><string>10.0 A</string></property></widget></item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="cardPotencia">
+        <property name="styleSheet">
+         <string notr="true">background-color: #ECF0F1; border-radius: 8px; padding: 10px;</string>
+        </property>
+        <layout class="QVBoxLayout" name="v3">
+         <item><widget class="QLabel" name="l3"><property name="text"><string>&lt;b&gt;Potência (P = V x I)&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblPotencia"><property name="text"><string>2200.0 W</string></property></widget></item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="cardDisjuntor">
+        <property name="styleSheet">
+         <string notr="true">background-color: #2ECC71; border-radius: 8px; padding: 10px; color: white;</string>
+        </property>
+        <layout class="QVBoxLayout" name="v4">
+         <item><widget class="QLabel" name="l4"><property name="text"><string>&lt;b&gt;Disjuntor&lt;/b&gt;</string></property></widget></item>
+         <item><widget class="QLabel" name="lblDisjuntor"><property name="text"><string>FECHADO (NORMAL)</string></property></widget></item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="PlotWidget" name="graphWidget" native="true">
+      <property name="minimumSize">
+       <size><width>0</width><height>250</height></size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="filterLayout">
+      <item>
+       <widget class="QComboBox" name="cbFiltro">
+        <item><property name="text"><string>Todos os Eventos</string></property></item>
+        <item><property name="text"><string>Alertas de Temperatura</string></property></item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="dateEdit">
+        <property name="calendarPopup"><bool>true</bool></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRegistrar">
+        <property name="text"><string>Simular Leitura Instantânea</string></property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="tableHistorico">
+      <column><property name="text"><string>Data/Hora</string></property></column>
+      <column><property name="text"><string>Temp. (°C)</string></property></column>
+      <column><property name="text"><string>Tensão (V)</string></property></column>
+      <column><property name="text"><string>Corrente (A)</string></property></column>
+      <column><property name="text"><string>Potência (W)</string></property></column>
+      <column><property name="text"><string>Status Disjuntor</string></property></column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QWidget</extends>
+   <header>pyqtgraph</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+</ui>

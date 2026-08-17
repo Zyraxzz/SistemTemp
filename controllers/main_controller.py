@@ -18,16 +18,18 @@ class MainController(QMainWindow):
         self.tableHistorico.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         
         self.model = TelemetryModel()
-        self.dateEdit.setDate(QDate.currentDate())
         
         self.x_data = []
         self.y_data = []
         self.plot_line = None
         
         self._setup_graph()
+
+        self.dateEdit.blockSignals(True)
+        self.dateEdit.setDate(QDate.currentDate())
+        self.dateEdit.blockSignals(False)
+
         self._conectar_sinais()
-  
-        self.atualizar_telemetria(temperatura=24.5, umidade=65, pressao=1012.0)
 
     def _setup_graph(self):
         self.graphWidget.setBackground('w')
